@@ -2,50 +2,37 @@
 using NUnit.Framework;
 using Priority_Queue;
 
-namespace Priority_Queue_Tests
-{
-    public class Node : StablePriorityQueueNode
-    {
-        public Node(int priority)
-        {
+namespace Priority_Queue_Tests {
+    public class Node : StablePriorityQueueNode {
+        public Node(int priority) {
             Priority = priority;
         }
 
-        public override string ToString()
-        {
-            return String.Format("Priority: {0}, InsertionIndex: {1}, QueueIndex: {2}", Priority, InsertionIndex, QueueIndex);
-        }
+        public override string ToString() => $"Priority: {Priority}, InsertionIndex: {InsertionIndex}, QueueIndex: {QueueIndex}";
     }
 
-    public abstract class SharedPriorityQueueTests<TQueue> where TQueue : IPriorityQueue<Node, float>
-    {
+    public abstract class SharedPriorityQueueTests<TQueue> where TQueue : IPriorityQueue<Node, float> {
         protected TQueue Queue { get; set; }
 
         protected abstract TQueue CreateQueue();
         protected abstract bool IsValidQueue();
 
-        protected void Enqueue(Node node)
-        {
+        protected void Enqueue(Node node) {
             Queue.Enqueue(node, node.Priority);
             Assert.IsTrue(IsValidQueue());
         }
 
-        protected Node Dequeue()
-        {
+        protected Node Dequeue() {
             Node returnMe = Queue.Dequeue();
             Assert.IsTrue(IsValidQueue());
             return returnMe;
         }
 
         [SetUp]
-        public void SetUp()
-        {
-            Queue = CreateQueue();
-        }
+        public void SetUp() => Queue = CreateQueue();
 
         [Test]
-        public void TestSanity()
-        {
+        public void TestSanity() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -55,8 +42,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestCount()
-        {
+        public void TestCount() {
             Assert.AreEqual(0, Queue.Count);
 
             Enqueue(new Node(1));
@@ -67,8 +53,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestFirst()
-        {
+        public void TestFirst() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -81,8 +66,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestEnqueueWorksWithTwoNodesWithSamePriority()
-        {
+        public void TestEnqueueWorksWithTwoNodesWithSamePriority() {
             Node node11 = new Node(1);
             Node node12 = new Node(1);
 
@@ -97,8 +81,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestSimpleQueue()
-        {
+        public void TestSimpleQueue() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -119,8 +102,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestForwardOrder()
-        {
+        public void TestForwardOrder() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -141,8 +123,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestBackwardOrder()
-        {
+        public void TestBackwardOrder() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -163,8 +144,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestAddingSameNodesLater()
-        {
+        public void TestAddingSameNodesLater() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -197,8 +177,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestAddingDifferentNodesLater()
-        {
+        public void TestAddingDifferentNodesLater() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -237,8 +216,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestClear()
-        {
+        public void TestClear() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -272,8 +250,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestRemoveOneItem()
-        {
+        public void TestRemoveOneItem() {
             Node node = new Node(1);
 
             Enqueue(node);
@@ -284,8 +261,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestRemoveMultipleItems()
-        {
+        public void TestRemoveMultipleItems() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -317,8 +293,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestContainsWorksOnNonResetNodeForSameQueue()
-        {
+        public void TestContainsWorksOnNonResetNodeForSameQueue() {
             Node node = new Node(1);
             Assert.IsFalse(Queue.Contains(node));
 

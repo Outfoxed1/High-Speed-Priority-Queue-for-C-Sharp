@@ -5,24 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Priority_Queue;
 
-namespace Priority_Queue_Example
-{
-    public static class FastPriorityQueueExample
-    {
+namespace Priority_Queue_Example {
+    public static class FastPriorityQueueExample {
         //The class to be enqueued.
-        public class User : FastPriorityQueueNode
-        {
+        public class User : FastPriorityQueueNode {
             public string Name { get; private set; }
-            public User(string name)
-            {
+            public User(string name) {
                 Name = name;
             }
         }
 
         private const int MAX_USERS_IN_QUEUE = 10;
 
-        public static void RunExample()
-        {
+        public static void RunExample() {
             //First, we create the priority queue.  We'll specify a max of 10 users in the queue
             FastPriorityQueue<User> priorityQueue = new FastPriorityQueue<User>(MAX_USERS_IN_QUEUE);
 
@@ -44,8 +39,7 @@ namespace Priority_Queue_Example
             priorityQueue.UpdatePriority(user2, 2);
 
             //Finally, we'll dequeue all the users and print out their names
-            while(priorityQueue.Count != 0)
-            {
+            while (priorityQueue.Count != 0) {
                 User nextUser = priorityQueue.Dequeue();
                 Console.WriteLine(nextUser.Name);
             }

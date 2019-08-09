@@ -3,32 +3,17 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Priority_Queue;
 
-namespace Priority_Queue_Tests
-{
+namespace Priority_Queue_Tests {
     [TestFixture]
-    internal class StablePriorityQueueTests : SharedFastPriorityQueueTests<StablePriorityQueue<Node>>
-    {
-        protected override StablePriorityQueue<Node> CreateQueue()
-        {
-            return new StablePriorityQueue<Node>(100);
-        }
-
-        protected override bool IsValidQueue()
-        {
-            return Queue.IsValidQueue();
-        }
-
+    internal class StablePriorityQueueTests : SharedFastPriorityQueueTests<StablePriorityQueue<Node>> {
+        protected override StablePriorityQueue<Node> CreateQueue() => new StablePriorityQueue<Node>(100);
+        protected override bool IsValidQueue() => Queue.IsValidQueue();
+        
         [Test]
-        public void TestOrderedQueue()
-        {
-            SharedStablePriorityQueueTests.TestOrderedQueue(Enqueue, Dequeue);
-        }
-
+        public void TestOrderedQueue() => SharedStablePriorityQueueTests.TestOrderedQueue(Enqueue, Dequeue);
         [Test]
-        public void TestMoreComplicatedOrderedQueue()
-        {
-            SharedStablePriorityQueueTests.TestMoreComplicatedOrderedQueue(Enqueue, Dequeue);
-        }
+        public void TestMoreComplicatedOrderedQueue() => SharedStablePriorityQueueTests.TestMoreComplicatedOrderedQueue(Enqueue, Dequeue);
+
     }
 }
 

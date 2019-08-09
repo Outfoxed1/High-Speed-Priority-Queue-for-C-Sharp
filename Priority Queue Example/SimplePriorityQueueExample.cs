@@ -5,12 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Priority_Queue;
 
-namespace Priority_Queue_Example
-{
-    public static class SimplePriorityQueueExample
-    {
-        public static void RunExample()
-        {
+namespace Priority_Queue_Example {
+    public static class SimplePriorityQueueExample {
+        public static void RunExample() {
             //First, we create the priority queue.
             SimplePriorityQueue<string> priorityQueue = new SimplePriorityQueue<string>();
 
@@ -25,8 +22,7 @@ namespace Priority_Queue_Example
             priorityQueue.UpdatePriority("2 - Tyler", 2);
 
             //Finally, we'll dequeue all the strings and print them out
-            while(priorityQueue.Count != 0)
-            {
+            while (priorityQueue.Count != 0) {
                 string nextUser = priorityQueue.Dequeue();
                 Console.WriteLine(nextUser);
             }

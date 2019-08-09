@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Priority_Queue;
 
-namespace Priority_Queue_Tests
-{
+namespace Priority_Queue_Tests {
     //Not sure how else to share these tests between StablePriorityQueueTests and SimplePriorityQueueTests.  Using inheritance like the other tests would
     //require multiple inheritance..
-    public static class SharedStablePriorityQueueTests
-    {
-        public static void TestOrderedQueue(Action<Node> enqueue, Func<Node> dequeue)
-        {
+    public static class SharedStablePriorityQueueTests {
+        public static void TestOrderedQueue(Action<Node> enqueue, Func<Node> dequeue) {
             Node node1 = new Node(1);
             Node node2 = new Node(1);
             Node node3 = new Node(1);
@@ -33,8 +30,7 @@ namespace Priority_Queue_Tests
             Assert.AreEqual(node5, dequeue());
         }
 
-        public static void TestMoreComplicatedOrderedQueue(Action<Node> enqueue, Func<Node> dequeue)
-        {
+        public static void TestMoreComplicatedOrderedQueue(Action<Node> enqueue, Func<Node> dequeue) {
             Node node11 = new Node(1);
             Node node12 = new Node(1);
             Node node13 = new Node(1);

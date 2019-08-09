@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Priority_Queue;
 
-namespace Priority_Queue_Tests
-{
+namespace Priority_Queue_Tests {
     [TestFixture]
-    internal abstract class SharedFastPriorityQueueTests<TQueue> : SharedPriorityQueueTests<TQueue>
-        where TQueue : IFixedSizePriorityQueue<Node, float>
-    {
+    internal abstract class SharedFastPriorityQueueTests<TQueue> : SharedPriorityQueueTests<TQueue> where TQueue : IFixedSizePriorityQueue<Node, float> {
         [Test]
-        public void TestMaxNodes()
-        {
+        public void TestMaxNodes() {
             Assert.AreEqual(100, Queue.MaxSize);
         }
 
         [Test]
-        public void TestResizeEmptyQueue()
-        {
+        public void TestResizeEmptyQueue() {
             Queue.Resize(10);
             Assert.AreEqual(0, Queue.Count);
             Assert.AreEqual(10, Queue.MaxSize);
@@ -28,8 +23,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestResizeCopiesNodes()
-        {
+        public void TestResizeCopiesNodes() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -45,11 +39,9 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestResizeQueueWasFull()
-        {
+        public void TestResizeQueueWasFull() {
             List<Node> nodes = new List<Node>(Queue.MaxSize);
-            for(int i = 0; i < Queue.MaxSize; i++)
-            {
+            for (int i = 0; i < Queue.MaxSize; i++) {
                 Node node = new Node(i);
                 Enqueue(node);
                 nodes.Insert(i, node);
@@ -57,16 +49,14 @@ namespace Priority_Queue_Tests
 
             Queue.Resize(Queue.MaxSize * 5);
 
-            for(int i = 0; i < nodes.Count; i++)
-            {
-                Assert.AreEqual(100-i, Queue.Count);
+            for (int i = 0; i < nodes.Count; i++) {
+                Assert.AreEqual(100 - i, Queue.Count);
                 Assert.AreEqual(nodes[i], Dequeue());
             }
         }
 
         [Test]
-        public void TestResizeQueueBecomesFull()
-        {
+        public void TestResizeQueueBecomesFull() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -87,8 +77,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestContainsWorksOnResetNode()
-        {
+        public void TestContainsWorksOnResetNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -102,12 +91,10 @@ namespace Priority_Queue_Tests
         }
 
         #region Debug build only tests
-        #if DEBUG
+#if DEBUG
         [Test]
-        public void TestDebugEnqueueThrowsOnFullQueue()
-        {
-            for(int i = 0; i < Queue.MaxSize; i++)
-            {
+        public void TestDebugEnqueueThrowsOnFullQueue() {
+            for (int i = 0; i < Queue.MaxSize; i++) {
                 Node node = new Node(i);
                 Enqueue(node);
             }
@@ -116,8 +103,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugEnqueueThrowsOnAlreadyEnqueuedNode()
-        {
+        public void TestDebugEnqueueThrowsOnAlreadyEnqueuedNode() {
             Node node = new Node(1);
 
             Enqueue(node);
@@ -126,8 +112,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugEnqueueThrowsOnCurrentlyUsedNode()
-        {
+        public void TestDebugEnqueueThrowsOnCurrentlyUsedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -136,8 +121,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugEnqueueThrowsOnReusedNode()
-        {
+        public void TestDebugEnqueueThrowsOnReusedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -147,8 +131,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugEnqueueWorksOnResetNode()
-        {
+        public void TestDebugEnqueueWorksOnResetNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -162,14 +145,12 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugDequeueThrowsOnEmptyQueue()
-        {
+        public void TestDebugDequeueThrowsOnEmptyQueue() {
             Assert.Throws<InvalidOperationException>(() => Queue.Dequeue());
         }
 
         [Test]
-        public void TestDebugDequeueThrowsOnEmptyQueue2()
-        {
+        public void TestDebugDequeueThrowsOnEmptyQueue2() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -183,14 +164,12 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugFirstThrowsOnEmptyQueue()
-        {
+        public void TestDebugFirstThrowsOnEmptyQueue() {
             Assert.Throws<InvalidOperationException>(() => { var a = Queue.First; });
         }
 
         [Test]
-        public void TestDebugFirstThrowsOnEmptyQueue2()
-        {
+        public void TestDebugFirstThrowsOnEmptyQueue2() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -204,8 +183,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugDequeueThrowsOnCorruptedQueue()
-        {
+        public void TestDebugDequeueThrowsOnCorruptedQueue() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -218,16 +196,14 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugRemoveThrowsOnNodeNotInQueue()
-        {
+        public void TestDebugRemoveThrowsOnNodeNotInQueue() {
             Node node = new Node(1);
 
             Assert.Throws<InvalidOperationException>(() => Queue.Remove(node));
         }
 
         [Test]
-        public void TestDebugRemoveThrowsOnNodeNotInQueue2()
-        {
+        public void TestDebugRemoveThrowsOnNodeNotInQueue2() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -237,8 +213,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugRemoveThrowsOnNodeNotInQueue3()
-        {
+        public void TestDebugRemoveThrowsOnNodeNotInQueue3() {
             Node node = new Node(1);
 
             Enqueue(node);
@@ -249,8 +224,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugRemoveThrowsOnCurrentlyUsedNode()
-        {
+        public void TestDebugRemoveThrowsOnCurrentlyUsedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -259,8 +233,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugRemoveThrowsOnReusedNode()
-        {
+        public void TestDebugRemoveThrowsOnReusedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -270,8 +243,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugRemoveWorksOnResetNode()
-        {
+        public void TestDebugRemoveWorksOnResetNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -286,16 +258,14 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugUpdatePriorityThrowsOnNodeNotInQueue()
-        {
+        public void TestDebugUpdatePriorityThrowsOnNodeNotInQueue() {
             Node node = new Node(1);
 
             Assert.Throws<InvalidOperationException>(() => Queue.UpdatePriority(node, 2));
         }
 
         [Test]
-        public void TestDebugUpdatePriorityThrowsOnNodeNotInQueue2()
-        {
+        public void TestDebugUpdatePriorityThrowsOnNodeNotInQueue2() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -305,8 +275,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugUpdatePriorityThrowsOnNodeNotInQueue3()
-        {
+        public void TestDebugUpdatePriorityThrowsOnNodeNotInQueue3() {
             Node node = new Node(1);
 
             Enqueue(node);
@@ -316,8 +285,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugUpdatePriorityThrowsOnCurrentlyUsedNode()
-        {
+        public void TestDebugUpdatePriorityThrowsOnCurrentlyUsedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -326,8 +294,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugUpdatePriorityThrowsOnReusedNode()
-        {
+        public void TestDebugUpdatePriorityThrowsOnReusedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -337,8 +304,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugUpdatePriorityWorksOnResetNode()
-        {
+        public void TestDebugUpdatePriorityWorksOnResetNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -353,14 +319,12 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugResizeThrowsOn0SizeQueue()
-        {
+        public void TestDebugResizeThrowsOn0SizeQueue() {
             Assert.Throws<InvalidOperationException>(() => Queue.Resize(0));
         }
 
         [Test]
-        public void TestDebugResizeSizeTooSmall()
-        {
+        public void TestDebugResizeSizeTooSmall() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
             Node node3 = new Node(3);
@@ -373,8 +337,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugNullParametersThrow()
-        {
+        public void TestDebugNullParametersThrow() {
             Assert.Throws<ArgumentNullException>(() => Queue.Contains(null));
             Assert.Throws<ArgumentNullException>(() => Queue.Enqueue(null, 1));
             Assert.Throws<ArgumentNullException>(() => Queue.Remove(null));
@@ -382,8 +345,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugContainsOutOfBoundsCloseTo0()
-        {
+        public void TestDebugContainsOutOfBoundsCloseTo0() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -395,8 +357,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugContainsOutOfBoundsVeryNegative()
-        {
+        public void TestDebugContainsOutOfBoundsVeryNegative() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -408,8 +369,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugContainsOutOfBoundsAboveMaxSize()
-        {
+        public void TestDebugContainsOutOfBoundsAboveMaxSize() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -421,8 +381,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugContainsOutOfBoundsVeryLarge()
-        {
+        public void TestDebugContainsOutOfBoundsVeryLarge() {
             Node node1 = new Node(1);
             Node node2 = new Node(2);
 
@@ -434,8 +393,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugContainsThrowsOnCurrentlyUsedNode()
-        {
+        public void TestDebugContainsThrowsOnCurrentlyUsedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -444,8 +402,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugContainsThrowsOnReusedNode()
-        {
+        public void TestDebugContainsThrowsOnReusedNode() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -455,8 +412,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugResetNodeThrowsOnNodeInOtherQueue()
-        {
+        public void TestDebugResetNodeThrowsOnNodeInOtherQueue() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -465,8 +421,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugResetNodeThrowsOnNodeInCurrentQueue()
-        {
+        public void TestDebugResetNodeThrowsOnNodeInCurrentQueue() {
             Node node = new Node(1);
             Enqueue(node);
 
@@ -474,8 +429,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestDebugResetNodeThrowsOnWrongQueue()
-        {
+        public void TestDebugResetNodeThrowsOnWrongQueue() {
             TQueue queue2 = CreateQueue();
             Node node = new Node(1);
             queue2.Enqueue(node, 1);
@@ -485,8 +439,7 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestResetNodeWorks()
-        {
+        public void TestResetNodeWorks() {
             Node node = new Node(1);
             Enqueue(node);
             Dequeue();
@@ -497,15 +450,14 @@ namespace Priority_Queue_Tests
         }
 
         [Test]
-        public void TestResetNodeWorksOnUnclaimedNode()
-        {
+        public void TestResetNodeWorksOnUnclaimedNode() {
             Node node = new Node(1);
             Queue.ResetNode(node);
 
             Assert.IsTrue(node.Queue == null);
             Assert.AreEqual(node.QueueIndex, 0);
         }
-        #endif
+#endif
         #endregion
     }
 }
