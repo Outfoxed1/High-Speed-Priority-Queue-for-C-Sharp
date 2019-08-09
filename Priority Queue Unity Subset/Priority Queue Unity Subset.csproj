@@ -71,6 +71,7 @@
     <Compile Include="..\Priority Queue\StablePriorityQueueNode.cs">
       <Link>StablePriorityQueueNode.cs</Link>
     </Compile>
+    <Compile Include="FastPriorityQueueInt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

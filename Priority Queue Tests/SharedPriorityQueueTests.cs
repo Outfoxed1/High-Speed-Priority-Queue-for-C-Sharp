@@ -4,11 +4,25 @@ using Priority_Queue;
 
 namespace Priority_Queue_Tests {
     public class Node : StablePriorityQueueNode {
+        public Node() { }
         public Node(int priority) {
             Priority = priority;
         }
 
+        public string Name { get; set; }
+
         public override string ToString() => $"Priority: {Priority}, InsertionIndex: {InsertionIndex}, QueueIndex: {QueueIndex}";
+    }
+
+    public class NodeInt : FastPriorityQueueNodeInt {
+        public NodeInt() { }
+        public NodeInt(int priority) {
+            Priority = priority;
+        }
+
+        public string Name { get; set; }
+
+        public override string ToString() => $"Priority: {Priority}, QueueIndex: {QueueIndex}";
     }
 
     public abstract class SharedPriorityQueueTests<TQueue> where TQueue : IPriorityQueue<Node, float> {

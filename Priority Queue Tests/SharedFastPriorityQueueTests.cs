@@ -90,6 +90,105 @@ namespace Priority_Queue_Tests {
             Assert.IsTrue(Queue.Contains(node));
         }
 
+        #region Custom Tests
+        [Test]
+        public void TestIntQueuePriority() {
+            FastPriorityQueue<Node> fastQueue = new FastPriorityQueue<Node>(100);
+            for (int i = 1; i < 50; i++) {
+                fastQueue.Enqueue(new Node(), i * 2);
+            }
+            Node n = new Node();
+            n.Name = "Test";
+            fastQueue.Enqueue(n, 2.0f);
+            fastQueue.Enqueue(new Node(), -1.0f);
+            Assert.IsTrue(fastQueue.First.Priority == -1.0f);
+            Assert.IsFalse(fastQueue.First.Name == "Test");
+            fastQueue.Dequeue();
+            fastQueue.Dequeue();
+            Assert.IsTrue(fastQueue.First.Name == "Test");
+        }
+
+        [Test]
+        public void TestIntQueueUpdatePriority() {
+            StablePriorityQueue<Node> stableQueue = new StablePriorityQueue<Node>(100);
+            Node n1 = new Node();
+            Node n2 = new Node();
+            Node n3 = new Node();
+            Node n4 = new Node();
+
+            stableQueue.Enqueue(n1, 1);
+            stableQueue.Enqueue(n2, 1);
+            stableQueue.Enqueue(n3, 1);
+            stableQueue.Enqueue(n4, 1);
+            Node node = stableQueue.First;
+            Assert.IsTrue(node == n1);
+            stableQueue.UpdatePriority(n1, 1);
+            node = stableQueue.First;
+            Assert.IsTrue(node == n1);
+            stableQueue.UpdatePriority(n1, 2);
+            node = stableQueue.First;
+            Assert.IsTrue(node == n2);
+            stableQueue.UpdatePriority(n1, 1);
+            node = stableQueue.First;
+            Assert.IsTrue(node == n1);
+            stableQueue.Dequeue();
+            node = stableQueue.First;
+            Assert.IsTrue(node == n2);
+            stableQueue.Dequeue();
+            node = stableQueue.First;
+            Assert.IsTrue(node == n3);
+        }
+
+        [Test]
+        public void TestIntQueuePriorityVsFloatTest1() {
+            FastPriorityQueue<Node> fastQueue = new FastPriorityQueue<Node>(100);
+            Node n1 = new Node();
+            Node n2 = new Node();
+            fastQueue.Enqueue(n1, 1);
+            fastQueue.Enqueue(n2, .9999999f);
+            Node node = fastQueue.First;
+            Assert.IsTrue(node == n2);
+        }
+
+        [Test]
+        public void TestIntQueuePriorityVsFloatTest2() {
+            FastPriorityQueue<Node> fastQueue = new FastPriorityQueue<Node>(100);
+            Node n1 = new Node();
+            Node n2 = new Node();
+            fastQueue.Enqueue(n1, 1);
+            fastQueue.Enqueue(n2, .9999999f);
+            fastQueue.UpdatePriority(n1, .9999999f);
+            Node node = fastQueue.First;
+            Assert.IsTrue(node == n2);
+            fastQueue.UpdatePriority(n2, 1);
+            node = fastQueue.First;
+            Assert.IsTrue(node == n1);
+        }
+
+        [Test]
+        public void TestFastPriorityQueueIntSorting() {
+            FastPriorityQueueInt<NodeInt> fastQueue = new FastPriorityQueueInt<NodeInt>(100);
+            NodeInt n1 = new NodeInt();
+            NodeInt n2 = new NodeInt();
+            fastQueue.Enqueue(n1, 1);
+            fastQueue.Enqueue(n2, Convert.ToInt32(.9999999f));
+            NodeInt node = fastQueue.First;
+            Assert.IsTrue(node == n1);
+            fastQueue.UpdatePriority(n2, 0);
+            node = fastQueue.First;
+            Assert.IsTrue(node == n2);
+            fastQueue.UpdatePriority(n2, 1);
+            node = fastQueue.First;
+            Assert.IsTrue(node == n2);
+            fastQueue.UpdatePriority(n2, 2);
+            node = fastQueue.First;
+            Assert.IsTrue(node == n1);
+            fastQueue.UpdatePriority(n2, 1);
+            node = fastQueue.First;
+            Assert.IsTrue(node == n1);
+        }
+        #endregion
+
         #region Debug build only tests
 #if DEBUG
         [Test]
